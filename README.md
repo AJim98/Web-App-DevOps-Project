@@ -60,3 +60,35 @@ To run the application, you simply need to run the `app.py` script in this repos
 ## License
 
 This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
+
+
+## Delivery Date:
+
+Initially a column for the delivery date was added, via changing the app.py and orders.html (inside the templates folder) files. However it was deemed as unnecessary and a revert was requested, therefore a new branch was created, where git log was used to find the last commit hash made the original Author, which was then used in conjunction with git revert <commit-hash>. Once the remote repository was reverted, the changes were commited and then pushed to the remote repository, which was then merged into the main folder.
+
+
+## Dockerfile:
+
+A dockerfile was created for the app.py, following instructions in the milestones.
+
+Commands used:
+
+- docker login --  Connects to dockerhub account and allows CLI to interact with it.
+- docker build -t project . -- Builds docker images called project in the current directory.
+- docker run -p 5000:5000 project -- Runs dockerfile, executing internal code. Go to: http://127.0.0.1:5000 to view content.
+- docker tag project username/project -- Tagging the docker image with both username and image name, for easy identification on  dockerhub. This step also prepares the docker image to be pushed to dockerhub.
+- docker push username/project -- Pushes docker image to dockerhub.
+
+
+## Terraform: Networking Module:
+
+
+In order to deploy the containerized app, onto a kubernetes cluster, the code must be inplemented via infrastructure as code (IaC) and Terraform was the selected method. In order to accomodate this, a directory was created for this procedure, with sub-directories with in it for provisioning both the neccessary azure networking services and kubernetes cluster, each containing variables.tf, main.tf and output.tf files.
+
+The variables.tf file was first created, defining input variables which can be used for configuring and customizing network services based on the application's requirements. The main.tf file was then created, which serves as the main file that is read by terraform during the initialisation process. Here, provider blocks are used to configure azure resources, specifying the provider and includes informaation about features and versions, if needed. Finally, the output.tf file was configured last, which allows for the output data/information to be structured in a way that will allow it to be further used in other parts of the app.
+
+In the output file for the networking module, the following variables were requested as outputs: 
+- vnet_id: This stores the ID of the vnet and will be used by the cluster to connect to a later defined Vnet
+- control_plane_subnet_id: This stores the ID of the control plane subnet, which will be used to specify the subnet where nodes will be deployed to.
+- worker_node_subnet_id: This stored the ID of the worker node subnet, which will specify the subnet where worker nodes, of AKS cluster, will be deployed to.
+- aks_nsg_id: This stores the ID of the network security group, which can be used in the AKS cluster for security.
