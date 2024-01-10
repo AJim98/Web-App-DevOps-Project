@@ -8,7 +8,7 @@ variable "resource_group_name" {
 variable "location" {
     description = "Specifies Azure region resources are deployed to."
     type = string
-    default = "England South"
+    default = "UK South"
 }
 
 variable "vnet_address_space" {

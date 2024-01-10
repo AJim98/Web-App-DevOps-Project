@@ -2,3 +2,9 @@ aks-terraform/networking-module/.terraform
 aks-terraform/networking-module/.terraform.lock.hcl
 aks-terraform/aks-cluster-module/.terraform
 aks-terraform/aks-cluster-module/.terraform.lock.hcl
+aks-terraform/.terraform
+aks-terraform/.terraform.lock.hcl
+~/.zshrc
+aks-terraform/~
+aks-terraform/terraform.tfstate
+

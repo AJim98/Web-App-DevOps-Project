@@ -23,11 +23,13 @@ variable "kubernetes_version" {
 variable "service_principal_client_id"{
     description = "Provides the Client ID for the service principal associated with the cluster"
     type = string
+    sensitive = true
 }
 
-variable "service_principal_secret" {
+variable "service_principal_client_secret" {
     description = "Supplies the Client Secret for the service principal"
     type = string
+    sensitive = true
 }
 
 # Outputs from networking-module/output.tf being used as inputs for aks-cluster-module/variables.tf
