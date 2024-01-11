@@ -7,4 +7,5 @@ aks-terraform/.terraform.lock.hcl
 ~/.zshrc
 aks-terraform/~
 aks-terraform/terraform.tfstate
+aks-terraform/terraform.tfstate.backup
 

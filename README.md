@@ -92,3 +92,26 @@ In the output file for the networking module, the following variables were reque
 - control_plane_subnet_id: This stores the ID of the control plane subnet, which will be used to specify the subnet where nodes will be deployed to.
 - worker_node_subnet_id: This stored the ID of the worker node subnet, which will specify the subnet where worker nodes, of AKS cluster, will be deployed to.
 - aks_nsg_id: This stores the ID of the network security group, which can be used in the AKS cluster for security.
+
+## Terraform: Main Configuration:
+
+During the main configuration for the application, a main.tf file must be created, where code, variables and outputs from other modules will be refferenced. The first to be dedined is an azure provider block, which enables authenticationto azure using service principal credentials, which are found prior to starting the configuration. The service principal app created was then accessed via azure commands to find the following:
+
+- appId --- Service principal's application ID, which is called the client_id in the root's main.tf file.
+- password --- Service principal's application password, which is called client_secret in the root's main.tf file.
+- subscription_id --- Azure subscription ID, which is used to link the terraform files to the specified azure account.
+- tenant --- Azure tenant ID, which represents the microsoft entra directory that manages all related Azure resources, which is called tenant_id in the root's main.tf file.
+
+Having found the above information, the /.zshrc file was accessed and the information was entered as export variables, due to their sensitive nature. Once entered, the command: "source ~/.zshrc" was ran, which refreshes the file and ensures that it is up-to-date and able to read the relevant data. 
+
+Once all files were created the following commands were run:
+
+- terraform init --- This initialises the working directory and installs all required plugins that were specified in the main.tf file.
+- terraform plan --- This creates an execution plan, which shows all changes that will be made to the infrastucture.
+- terraform apply --- This executes the plan suggested in the previous command creating, updatign or deleting the resources as needed.
+
+After the main configuration file has been provisioned, the kubeconfig file must be accessed, which allows for secure connection to the AKS cluster. This is done using the following command:
+
+- az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster-name>
+
+Once retrieved, kubectl can be used to interact with the AKS cluster.
