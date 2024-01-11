@@ -1,6 +1,6 @@
 # aks-cluster-module main.tf
 
-resource "azurerm_kubernetes_cluster" "ask_cluster"{
+resource "azurerm_kubernetes_cluster" "aks_cluster"{
     name = var.aks_cluster_name
     location = var.cluster_location
     resource_group_name = var.resource_group_name
@@ -17,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "ask_cluster"{
     }
 
     service_principal{
-        client_id = var.service_princal_client_id
+        client_id = var.service_principal_client_id
         client_secret = var.service_principal_client_secret
     }
     
