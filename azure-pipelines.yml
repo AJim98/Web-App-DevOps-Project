@@ -12,16 +12,8 @@ pool:
 steps:
 - task: Docker@2
   inputs:
-    containerRegistry: 
-    repository: 
-    command: 
-    Dockerfile: 
-    tags: 
-- task:
-  inputs:
-    action: 
-    connectionType: 
-    azureSubscriptionConnection: 
-    azureResourceGroup:
-    kubernetesCluster:
-    manifests:
+    containerRegistry: 'Docker Hub'
+    repository: 'ajim98/project'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: 'latest'
