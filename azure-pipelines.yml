@@ -15,5 +15,5 @@ steps:
     containerRegistry: 'Docker Hub'
     repository: 'ajim98/project'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: 'C:\Users\abdul\Desktop\DevOps_Project\Web-App-DevOps-Project/Dockerfile'
     tags: 'latest'
