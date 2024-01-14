@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: flask-app-container
-          image: ajim98/project
+          image: ajim98/project:latest
           ports:
           - containerPort: 5000
   strategy:
