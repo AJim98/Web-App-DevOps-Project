@@ -15,7 +15,7 @@ spec:
         app: flask-app
     spec:
       containers:
-        - name: nginx-container
+        - name: flask-app-container
           image: ajim98/project
           ports:
           - containerPort: 5000
