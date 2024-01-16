@@ -14,3 +14,8 @@ variable "vnet_address_space" {
     description = "Specifies address space for virtual network (VNet)"
     type = list(string)
 }
+
+variable "ip_address" {
+    description = "Personal IP address"
+    type = string
+}

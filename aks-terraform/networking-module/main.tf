@@ -45,7 +45,7 @@ resource "azurerm_network_security_rule" "kube_apiserver" {
   protocol                    = "*"
   source_port_range           = "*"
   destination_port_range      = "6443"  # Port used by kube-apiserver
-  source_address_prefix       = "92.4.167.52" # Replace with your public IP address
+  source_address_prefix       = var.ip_address # Replace with your public IP address
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.networking.name
   network_security_group_name = azurerm_network_security_group.aks_nsg.name
@@ -60,7 +60,7 @@ resource "azurerm_network_security_rule" "ssh" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "22"
-  source_address_prefix       = "92.4.167.52"  # Replace with your public IP or IP range
+  source_address_prefix       = var.ip_address # Replace with your public IP or IP range
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.networking.name
   network_security_group_name = azurerm_network_security_group.aks_nsg.name
