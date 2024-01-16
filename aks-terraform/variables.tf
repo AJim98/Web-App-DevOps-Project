@@ -22,3 +22,7 @@ variable "tenant_id"{
     type = string
 }
 
+variable "ip_address" {
+    description = "Personal IP address"
+    type = string
+}
