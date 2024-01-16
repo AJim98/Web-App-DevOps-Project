@@ -16,6 +16,6 @@ variable "vnet_address_space" {
 }
 
 variable "ip_address" {
-    description = "Personal IP address"
+    description = "Ip address"
     type = string
 }

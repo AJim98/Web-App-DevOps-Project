@@ -21,8 +21,3 @@ variable "tenant_id"{
     description = "Azure tenant ID"
     type = string
 }
-
-variable "ip_address" {
-    description = "Personal IP address"
-    type = string
-}

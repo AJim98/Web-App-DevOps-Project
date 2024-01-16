@@ -25,7 +25,6 @@ module "networking"{
     resource_group_name = "networkingproject_resource_group"
     location = "UK South"
     vnet_address_space = ["10.0.0.0/16"]
-    source_address_prefix = var.ip_address
 }
 
 # Adding the aks-cluster-module
