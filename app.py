@@ -5,6 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 import pyodbc
 import os
+from azure.identity import ManagedIdentityCredential
+from azure.keyvault.secrets import SecretClient
 
 # Initialise Flask App
 app = Flask(__name__)
@@ -110,3 +112,19 @@ def add_order():
 # run the app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+    
+
+# Key vault details
+key_vault_url = "https://project-app.vault.azure.net/"
+
+# Set up Azure Key Vault client with Managed Identity
+credential = ManagedIdentityCredential()
+secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
+
+# Access the secret values from Key Vault
+# secret = secret_client.get_secret("Server-name")
+Server-name = secret_client.get_secret("Server-name").value
+Server-password = secret_client.get_secret("Server-password").value
+Server-username = secret_client.get_secret("Server-username").value
+Database-name =  secret_client.get_secret("Database-name").value
+

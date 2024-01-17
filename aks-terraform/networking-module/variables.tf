@@ -15,7 +15,3 @@ variable "vnet_address_space" {
     type = list(string)
 }
 
-variable "ip_address" {
-    description = "Ip address"
-    type = string
-}
