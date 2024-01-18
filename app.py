@@ -11,11 +11,8 @@ from azure.keyvault.secrets import SecretClient
 # Initialise Flask App
 app = Flask(__name__)
 
-# database connection 
-# server = 'devops-project-server.database.windows.net'
-# database = 'orders-db'
-# username = 'maya'
-# password = 'AiCore1237'
+
+driver= '{ODBC Driver 18 for SQL Server}'
 # Key vault details
 key_vault_url = "https://project-app.vault.azure.net/"
 
@@ -29,7 +26,6 @@ Server-name = secret_client.get_secret("Server-name").value
 Server-password = secret_client.get_secret("Server-password").value
 Server-username = secret_client.get_secret("Server-username").value
 Database-name =  secret_client.get_secret("Database-name").value
-driver= '{ODBC Driver 18 for SQL Server}'
 
 # Create the connection string
 connection_string=f'Driver={driver};\
