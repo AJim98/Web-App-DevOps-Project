@@ -13,4 +13,5 @@ aks-terraform/terraform.tfstate.backup
 aks-terraform/.terraform
 aks-terraform/.docker
 ~
+.docker
 
