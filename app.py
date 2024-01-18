@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 driver= '{ODBC Driver 18 for SQL Server}'
 # Key vault details
-key_vault_url = "https://devops-project.vault.azure.net/"
+key_vault_url = "https://project-app.vault.azure.net/"
 
 # Set up Azure Key Vault client with Managed Identity
 credential = ManagedIdentityCredential()
