@@ -22,10 +22,10 @@ secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
 # Access the secret values from Key Vault
 # secret = secret_client.get_secret("Server-name")
-Server-name = secret_client.get_secret("Server-name").value
-Server-password = secret_client.get_secret("Server-password").value
-Server-username = secret_client.get_secret("Server-username").value
-Database-name =  secret_client.get_secret("Database-name").value
+server_name = secret_client.get_secret("Server-name").value
+server_assword = secret_client.get_secret("Server-password").value
+server_username = secret_client.get_secret("Server-username").value
+database_name =  secret_client.get_secret("Database-name").value
 
 # Create the connection string
 connection_string=f'Driver={driver};\
