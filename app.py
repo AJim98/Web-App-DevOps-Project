@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 import pyodbc
 import os
-from azure.identity import DefaultAzureCredential
+from azure.identity import ManagedIdentityCredential
 from azure.keyvault.secrets import SecretClient
 
 # Initialise Flask App
@@ -17,7 +17,7 @@ driver= '{ODBC Driver 18 for SQL Server}'
 key_vault_url = "https://project-app.vault.azure.net/"
 
 # Set up Azure Key Vault client with Managed Identity
-credential = DefaultAzureCredential()
+credential = ManagedIdentityCredentiall()
 secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
 # Access the secret values from Key Vault
