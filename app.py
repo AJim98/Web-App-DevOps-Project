@@ -14,10 +14,10 @@ app = Flask(__name__)
 
 driver= '{ODBC Driver 18 for SQL Server}'
 # Key vault details
-key_vault_url = "https://project-app.vault.azure.net/"
+key_vault_url = "https://project-kv-app.vault.azure.net/"
 
 # Set up Azure Key Vault client with Managed Identity
-credential = ManagedIdentityCredential(client_id='dcd71fb9-7853-4fd1-835c-fe66353cffd3')
+credential = ManagedIdentityCredential(client_id="acc3b624-0c2a-4ed3-b21c-32ac09c745a7")
 secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
 # Access the secret values from Key Vault
