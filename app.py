@@ -17,7 +17,7 @@ driver= '{ODBC Driver 18 for SQL Server}'
 key_vault_url = "https://project-kv-app.vault.azure.net/"
 
 # Set up Azure Key Vault client with Managed Identity
-credential = ManagedIdentityCredential(client_id="acc3b624-0c2a-4ed3-b21c-32ac09c745a7")
+credential = ManagedIdentityCredential()
 secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
 # Access the secret values from Key Vault
