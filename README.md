@@ -36,6 +36,9 @@ For the application to succesfully run, you need to install the following packag
 - pyodbc (version 4.0.39)
 - SQLAlchemy (version 2.0.21)
 - werkzeug (version 2.2.3)
+- azure identity (version 1.15.0)
+- azure keyvault secrets (version 4.7.0)
+
 
 ### Usage
 
@@ -53,13 +56,12 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
 
-## Contributors 
+## Project Structure (UML)
 
-- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
+![Project structure image](./DevOps-pipeline.jpeg)
 
-## License
 
-This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
+
 
 
 ## Delivery Date:
@@ -127,13 +129,15 @@ In order to communicate with the kubernetes cluster, a port on the application m
 
 The next step is to define the kubernetes services, which will allow internal communication within the AKS cluster. This will be added to the application-manifest.yaml file using the --- file. For example:
 
+'''
 manifest deployment code
 ---
-manifest services code
+manifest service code
+'''
 
-Having added this, a service named: "flask-app-service" was defined, allowing refference for internal routing. Followign this, similar to the previous section's definition a label called app: flask-app was also created , ensuring that the traffic properly goes to the relevant pods. Next the exposed ports for both internal and external communication must be defined, 80 for the internal and 5000 for the external communication. Finally, the service type is established, in this case the ClusterIP was used, which designates this file as an internal kubernetes service, completing the application-manifest.yaml file.
+Having added this, a service named: "flask-app-service" was defined, allowing for internal routing. Following this, a label called app: flask-app was also created , ensuring that the traffic properly goes to the relevant pods. Next the exposed ports for both internal and external communication must be defined, 80 for the internal and 5000 for the external communication. Finally, the service type is established, in this case the ClusterIP was used, which designates this file as an internal kubernetes service, completing the application-manifest.yaml file.
 
-Once complete the file can be deployed, using the command: "kubectl port-forward <pod-name> 5000:5000". However, care  must be taken that the correct context is being used, which was defined in the last section and can be checked using: "kubectl config get-contexts", which will list all contexts currently available in the environment, with the current active context having a * next to it. If the correct context if being used the app can be deployed, however if not use the command: "kubectl config use-context <context-name>". Now the command to run the file can be executed and the application can be viewed locally at: "http://127.0.0.1:5000".
+Once complete the file can be deployed, using the command: "kubectl port-forward <pod-name> 5000:5000". However, care  must be taken that the correct context is being used, which was defined in the last section and can be checked using: "kubectl config get-contexts", which will list all contexts currently available in the environment, with the current active context having a * next to it. If the correct context if being used the app can be deployed, however if not use the command: "kubectl config use-context <context-name>". Now the command to run the file can be executed and the application can be viewed locally at: 'http://127.0.0.1:5000'.
 
 
 
@@ -260,6 +264,10 @@ Replacing:
 - {resource-group} with the AKS clsuter's resource group name.
 - {key-vault-name} name of the Key vault currently holding the application's secrets.
 
+Please note that this command must be ran in the commandprmpt and not gitbash, as the latter will assume that the \ and / are reffering to folders/directories which it does not have access to. The same is also true for command prompt, hoever by removinng certain forward and back slashes, as seen in the following command:
+
+az role assignment create --role "Key Vault Secrets Officer" --assignee <managed-identity-client-id> --scope /subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.KeyVault/vaults/{key-vault-name}
+
 Once assigned, the Azure Identity and Azure Key Vault libraries can both be integrated into the code, ensuring secure retrival of sensitive information from the Key Vault. Additionally, the Dockerfile must also be updated, including the following libraries are installed:
 
 Libraries to add to Dockerfile requirements.txt file:
@@ -268,6 +276,7 @@ Libraries to add to Dockerfile requirements.txt file:
 
 The following code must be added to the main application's code, replacing the hardcoded data base credentials:
 
+'''
 Key vault details:
 key_vault_url = <Insert URL here>
 
@@ -281,10 +290,20 @@ Server-name = secret_client.get_secret("Server-name").value
 Server-password = secret_client.get_secret("Server-password").value
 Server-username = secret_client.get_secret("Server-username").value
 Database-name =  secret_client.get_secret("Database-name").value
+'''
 
 Now the AKS hosted application gains the ability to access the secrets stored in Azure Key Vault, increasing the security of the applciation. 
 
 Having completed the DevOps section of the project, the application must be tested, ensuring that both the application is working as expected. This test will consist of pushing the locally stored repository to github, triggering the CI/CD pipeline and running the command: "kubeclt port-forward <pod-name> 5000:5000". 
 
 
+## Contributors 
+
+- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
+- [Abdirahman Jimaale](([https://github.com/yourusername](https://github.com/AJim98)))
+
+
+## License
+
+This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
 
