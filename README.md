@@ -73,6 +73,7 @@ Initially a column for the delivery date was added, via changing the app.py and 
 
 A dockerfile was created for the app.py, following instructions in the milestones.
 
+```
 Commands used:
 
 - docker login --  Connects to dockerhub account and allows CLI to interact with it.
@@ -80,7 +81,7 @@ Commands used:
 - docker run -p 5000:5000 project -- Runs dockerfile, executing internal code. Go to: http://127.0.0.1:5000 to view content.
 - docker tag project username/project -- Tagging the docker image with both username and image name, for easy identification on  dockerhub. This step also prepares the docker image to be pushed to dockerhub.
 - docker push username/project -- Pushes docker image to dockerhub.
-
+```
 
 ## Terraform: Networking Module:
 
@@ -113,9 +114,9 @@ Once all files were created the following commands were run:
 - terraform apply --- This executes the plan suggested in the previous command creating, updatign or deleting the resources as needed.
 
 After the main configuration file has been provisioned, the kubeconfig file must be accessed, which allows for secure connection to the AKS cluster. This is done using the following command:
-
+```
 - az aks get-credentials --resource-group <your-resource-group> --name <your-aks-cluster-name>
-
+```
 Once retrieved, kubectl can be used to interact with the AKS cluster.
 
 
@@ -235,10 +236,14 @@ All created secrets will now appear in the Secrets tab, where they can be modifi
 In order for the AKS Cluster to access the sensitive information and securely access the database, it must be intergrated into the Azure Key Vault, enabling managed identities for the AKS and assigning the necessary key vault permissions. Managed identities are an important security feature in Azure, which is used to simplify the authentication and authorization for applications, removing the need for the manual managment of credentials and replacing it with an automatically managed identity. For this project, system-assigned managed identities are ideal, as a singular workload is being used, as opposed to the multi-resource user-assigned managed identity. 
 
 In order to enable a managed identity, a command-line interface must b accessed, where you can then log into Azure using the command:
+```
 - az login
-
+```
 Following this command, login to the Azure account where the AKS Cluster and Key Vault as stored. The following command can then be used to enable the managed identity for the AKS cluster:
+
+```
 - az aks update --resource-group <resource-group> --name <aks-cluster-name> --enable-managed-identity
+```
 
 Replacing:
 - <resource-group> with the name of the resource group of the AKS cluster.
@@ -246,8 +251,9 @@ Replacing:
 
 Having been created and and enabled, the client ID for the identity must be found, which will be used to assign permissions for the AKS cluster to interact with the key vault's secrets. This can be done using the following command:
 
+```
 - az aks show --resource-group <resource-group> --name <aks-cluster-name> --query identityProfile
-
+```
 Similarly to the previous command replace:
 - <resource-group> with the name of the resource group of the AKS cluster.
 - <aks-cluster-name> witht the name of the AKS cluster.
@@ -266,7 +272,9 @@ Replacing:
 
 Please note that this command must be ran in the commandprmpt and not gitbash, as the latter will assume that the \ and / are reffering to folders/directories which it does not have access to. The same is also true for command prompt, hoever by removinng certain forward and back slashes, as seen in the following command:
 
+```
 az role assignment create --role "Key Vault Secrets Officer" --assignee <managed-identity-client-id> --scope /subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.KeyVault/vaults/{key-vault-name}
+```
 
 Once assigned, the Azure Identity and Azure Key Vault libraries can both be integrated into the code, ensuring secure retrival of sensitive information from the Key Vault. Additionally, the Dockerfile must also be updated, including the following libraries are installed:
 
