@@ -129,11 +129,11 @@ In order to communicate with the kubernetes cluster, a port on the application m
 
 The next step is to define the kubernetes services, which will allow internal communication within the AKS cluster. This will be added to the application-manifest.yaml file using the --- file. For example:
 
-'''
+```
 manifest deployment code
 ---
 manifest service code
-'''
+```
 
 Having added this, a service named: "flask-app-service" was defined, allowing for internal routing. Following this, a label called app: flask-app was also created , ensuring that the traffic properly goes to the relevant pods. Next the exposed ports for both internal and external communication must be defined, 80 for the internal and 5000 for the external communication. Finally, the service type is established, in this case the ClusterIP was used, which designates this file as an internal kubernetes service, completing the application-manifest.yaml file.
 
@@ -276,7 +276,7 @@ Libraries to add to Dockerfile requirements.txt file:
 
 The following code must be added to the main application's code, replacing the hardcoded data base credentials:
 
-'''
+```
 Key vault details:
 key_vault_url = <Insert URL here>
 
@@ -290,7 +290,7 @@ Server-name = secret_client.get_secret("Server-name").value
 Server-password = secret_client.get_secret("Server-password").value
 Server-username = secret_client.get_secret("Server-username").value
 Database-name =  secret_client.get_secret("Database-name").value
-'''
+```
 
 Now the AKS hosted application gains the ability to access the secrets stored in Azure Key Vault, increasing the security of the applciation. 
 
